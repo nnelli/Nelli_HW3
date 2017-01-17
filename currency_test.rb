@@ -31,5 +31,19 @@ class CurrencyTest < Minitest::Test
     a = Currency.new(amount: 100, code: 'USD')
     b = a.multiply(3)
     assert b == Currency.new(amount:300, code: 'USD')
+
+    c = a.multiply("3")
+    assert c.nil?
+  end
+
+  def test_subtraction
+    a = Currency.new(amount: 100, code: 'USD')
+    b = Currency.new(amount: 50, code: 'USD')
+    c = a.subtract(b)
+    assert c == Currency.new(amount: 50, code: 'USD')
+
+    d = Currency.new(amount: 34, code: 'EUR')
+    e = a.subtract(d)
+    assert e.nil?
   end
 end
