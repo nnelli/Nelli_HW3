@@ -25,4 +25,27 @@ class CurrencyConverterTest < Minitest::Test
     assert b == Currency.new(amount:18.5, code: "EUR")
   end
 
+  def test_conversion_2
+    usd_eur_jpy = Currency_converter.new(conversion: {USD: 1.0, EUR: 0.74, JPY: 1.20})
+    a = Currency.new(amount: 25, code: "JPY")
+
+    b = usd_eur_jpy.convert(a, :EUR)
+    assert b == Currency.new(amount:15.42, code: "EUR")
+  end
+
+  def test_unknown_currency
+    usd_eur_jpy = Currency_converter.new(conversion: {USD: 1.0, EUR: 0.74, JPY: 1.20})
+    a = Currency.new(amount: 25, code: "JPY")
+
+    assert_raises RuntimeError do
+      b = usd_eur_jpy.convert(a, :ABC)
+    end
+
+    assert_raises RuntimeError do
+      a = Currency.new(amount: 10, code: "ABC")
+      b = usd_eur_jpy.convert(a, :USD)
+    end
+
+  end
+
 end
