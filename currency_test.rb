@@ -22,9 +22,12 @@ class CurrencyTest < Minitest::Test
     c = a.add(b)
     assert c == Currency.new(amount: 200, code: 'USD')
 
-    d = Currency.new(amount: 34, code: 'EUR')
-    e = a.add(d)
-    assert e.nil?
+    assert_raises RuntimeError do
+      d = Currency.new(amount: 34, code: 'EUR')
+      e = a.add(d)      
+    end
+
+
   end
 
   def test_multiplication
@@ -32,8 +35,10 @@ class CurrencyTest < Minitest::Test
     b = a.multiply(3)
     assert b == Currency.new(amount:300, code: 'USD')
 
-    c = a.multiply("3")
-    assert c.nil?
+    assert_raises RuntimeError do
+      c = a.multiply("3")
+    end
+
   end
 
   def test_subtraction
@@ -42,8 +47,10 @@ class CurrencyTest < Minitest::Test
     c = a.subtract(b)
     assert c == Currency.new(amount: 50, code: 'USD')
 
-    d = Currency.new(amount: 34, code: 'EUR')
-    e = a.subtract(d)
-    assert e.nil?
+    assert_raises RuntimeError do
+      d = Currency.new(amount: 34, code: 'EUR')
+      e = a.subtract(d)
+    end
+
   end
 end
