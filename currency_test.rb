@@ -24,7 +24,7 @@ class CurrencyTest < Minitest::Test
 
     assert_raises RuntimeError do
       d = Currency.new(amount: 34, code: 'EUR')
-      e = a.add(d)      
+      e = a.add(d)
     end
 
 
@@ -51,6 +51,19 @@ class CurrencyTest < Minitest::Test
       d = Currency.new(amount: 34, code: 'EUR')
       e = a.subtract(d)
     end
+  end
 
+  def test_single_parameter
+    a = Currency.new(amount_w_code: "$2.50")
+    assert a.amount = 2.50
+    assert a.code = "$"
+
+    b = Currency.new(amount_w_code: "3.57€")
+    assert b.amount = 3.57
+    assert b.code = "€"
+
+    assert_raises RuntimeError do
+      c = Currency.new(amount_w_code: "$230.32$")
+    end
   end
 end
